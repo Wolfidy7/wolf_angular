@@ -1,16 +1,4 @@
-<div class = "wolf-snap-card" [ngClass]="{snappedClass: snapped}">
-  <h2>{{wolfSnap.title}}</h2>
-  @if (wolfSnap.location ){
-    <p>Localisation: {{wolfSnap.location}}</p>
-  }
-  @else{
-    <p>localisation non spécifiée</p>
-  }
-  <img [src]="wolfSnap.imageUrl" alt="Le meilleur gars">
-  <p>{{wolfSnap.description}}</p>
-  <p>Wolfsnap créé le {{wolfSnap.createdAt}}</p>
-  <p>
-    <button (click)="onSnap()">{{ snapButtonText }}</button>
-    <span [ngStyle]="{color: 'rgb(0,'+ wolfSnap.snaps * 10 +',0)'}">👌😎 {{wolfSnap.snaps}}</span>
-  </p>
+<div class = "wolf-snap-card">
+  <h2>{{wolfSnap.title | titlecase}}</h2>
+<button (click)="onViewWolfSnap()">VIEW</button>
 </div>

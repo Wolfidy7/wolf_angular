@@ -1,31 +1,23 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {WolfSnap} from "../models/wolf-snap";
-import {NgClass, NgStyle} from "@angular/common";
+import { TitleCasePipe} from "@angular/common";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-face-wolf',
   standalone: true,
   imports: [
-    NgStyle,
-    NgClass,
+    TitleCasePipe,
   ],
   templateUrl: './face-wolf.component.html',
   styleUrl: './face-wolf.component.scss'
 })
-export class FaceWolfComponent implements OnInit {
+export class FaceWolfComponent {
   @Input() wolfSnap!: WolfSnap;
 
-  snapped!: boolean
-  snapButtonText!: string;
+  constructor(private router: Router) {}
 
-  ngOnInit(): void {
-    this.snapped = false;
-    this.snapButtonText = "Oh snap !"
-  }
-
-  onSnap() {
-      this.snapped = !this.snapped;
-      this.snapped ? this.wolfSnap.addSnap() : this.wolfSnap.removeSnap();
-      this.snapped ? this.snapButtonText ="Unsnap :(" : this.snapButtonText ="Oh snap !"
+  onViewWolfSnap() {
+    this.router.navigateByUrl(`snapList/${this.wolfSnap.id}`);
   }
 }
