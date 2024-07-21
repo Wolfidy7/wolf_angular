@@ -1,12 +1,14 @@
 import {Injectable} from "@angular/core";
 import {WolfSnap} from "../models/wolf-snap";
 import {SnapType} from "../models/snap-type.type";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class FaceWolvesService {
+
   private SnapList: WolfSnap[] = [
     new WolfSnap(
       'Gojo Satoru',
@@ -26,8 +28,10 @@ export class FaceWolvesService {
   ]
 
   getSnapList(): WolfSnap[]{
-    return [...this.SnapList];
+    //return this.httpClient.get<WolfSnap[]>('http://localhost:3000/wolfsnaps');
+    return this.SnapList;
   }
+
   getWolfSnapById(id: string): WolfSnap{
     const foundWolfSnap: WolfSnap|undefined = this.SnapList.find(wolfSnap => wolfSnap.id === id);
     if (!foundWolfSnap) {
@@ -41,5 +45,17 @@ export class FaceWolvesService {
       throw new Error('WolfSnap not found !')
     }
     snapType == 'snap' ? wolfSnap.addSnap() : wolfSnap.removeSnap();
+  }
+
+  addWolfSnap(formValue: {title: string, description: string, imageUrl: string, location?: string}): void{
+    const wolfSnap = new WolfSnap(
+      formValue.title,
+      formValue.description,
+      new Date(),
+      formValue.imageUrl,
+      0,
+      formValue.location,
+    )
+    this.SnapList.push(wolfSnap);
   }
 }

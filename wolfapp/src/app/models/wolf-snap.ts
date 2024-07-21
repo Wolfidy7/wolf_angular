@@ -1,8 +1,5 @@
 export class WolfSnap{
 
-/*
-  location?: string;
-*/
   id: string;
   constructor(public title: string,
               public description: string,
@@ -19,12 +16,4 @@ export class WolfSnap{
   removeSnap(): void{
     this.snaps--;
   }
-  /*setLocation(location: string): void{
-    this.location = location;
-  }
-
-  withLocation(location: string): WolfSnap{
-    this.setLocation(location);
-    return this;
-  }*/
 }

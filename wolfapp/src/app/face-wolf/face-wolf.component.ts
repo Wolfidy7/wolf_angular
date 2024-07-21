@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {WolfSnap} from "../models/wolf-snap";
-import { TitleCasePipe} from "@angular/common";
+import {TitleCasePipe} from "@angular/common";
 import {Router} from "@angular/router";
 
 @Component({
