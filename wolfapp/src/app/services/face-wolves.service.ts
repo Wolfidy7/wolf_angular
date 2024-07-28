@@ -33,16 +33,19 @@ export class FaceWolvesService {
     );
   }
 
-  addWolfSnap(formValue: {title: string, description: string, imageUrl: string, location?: string}): void{
-    const wolfSnap = new WolfSnap(
-      170,
-      formValue.title,
-      formValue.description,
-      new Date(),
-      formValue.imageUrl,
-      0,
-      formValue.location,
-    )
-    this.SnapList.push(wolfSnap);
+  addWolfSnap(formValue: {title: string, description: string, imageUrl: string, location?: string}): Observable<WolfSnap>{
+      return this.getSnapList().pipe(
+        map(snapList =>[...snapList].sort((a:WolfSnap, b) => a.id - b.id)),
+        map(sorteSnapList => sorteSnapList[sorteSnapList.length - 1]),
+        map(previousWolfSnap => ({
+          ...formValue,
+          snaps: 0,
+          createdAt: new Date(),
+          id: previousWolfSnap.id + 1,
+        })),
+        switchMap(newWolfSNap => {
+          return this.httpClient.post<WolfSnap>('http://localhost:3000/wolfsnaps', newWolfSNap);
+        })
+      )
   }
 }

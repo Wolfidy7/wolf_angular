@@ -1,7 +1,7 @@
 {
   "wolfsnaps": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Archibald",
       "description": "Mon meilleur ami depuis tout petit !",
       "imageUrl": "https://cdn.pixabay.com/photo/2015/05/31/16/03/teddy-bear-792273_1280.jpg",
@@ -10,7 +10,7 @@
       "location": "Paris"
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Three Rock Mountain",
       "description": "Un endroit magnifique pour les randonnées.",
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Three_Rock_Mountain_Southern_Tor.jpg/2880px-Three_Rock_Mountain_Southern_Tor.jpg",
@@ -19,12 +19,30 @@
       "location": "la montagne"
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "Un bon repas",
       "description": "Mmmh que c'est bon !",
       "imageUrl": "https://wtop.com/wp-content/uploads/2020/06/HEALTHYFRESH.jpg",
       "createdAt": "Mon Dec 13 2021 14:51:42 GMT+0100 (Central European Standard Time)",
       "snaps": 157
+    },
+    {
+      "id": "31",
+      "title": "shanks le roux",
+      "description": "Le goat qui a fumé Kidd",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoG3WWK37hcexTWVF7OQy94EgCRV7gtUkong&s",
+      "location": "Grand Line",
+      "snaps": 0,
+      "createdAt": "2024-07-28T17:56:34.297Z"
+    },
+    {
+      "id": "311",
+      "title": "test nouveau wolf snap",
+      "description": "aucune",
+      "imageUrl": "https://www.journee-mondiale.com/medias/grande/images/journee/rien-du-tout.jpg",
+      "location": null,
+      "snaps": 2,
+      "createdAt": "2024-07-28T17:59:34.598Z"
     }
   ]
 }

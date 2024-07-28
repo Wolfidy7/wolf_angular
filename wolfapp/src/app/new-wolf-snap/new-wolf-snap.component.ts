@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
 import {WolfSnap} from "../models/wolf-snap";
-import {map} from "rxjs/operators";
+import {map, tap} from "rxjs/operators";
 import {AsyncPipe, DatePipe, NgIf, TitleCasePipe, UpperCasePipe} from "@angular/common";
 import {FaceWolvesService} from "../services/face-wolves.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -51,8 +51,10 @@ export class NewWolfSnapComponent implements OnInit{
   }
   onSubmitForm(){
     console.log(this.snapForm.value);
-    this.wolfService.addWolfSnap(this.snapForm.value);
-    this.router.navigateByUrl("/snapList");
+    this.wolfService.addWolfSnap(this.snapForm.value).pipe(
+      tap(()=>this.router.navigateByUrl("/snapList"))
+    ).subscribe();
+
   }
 
 }
