@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {WolfSnap} from "../models/wolf-snap";
-import {LowerCasePipe, NgClass, NgStyle, TitleCasePipe, UpperCasePipe} from "@angular/common";
+import {AsyncPipe, LowerCasePipe, NgClass, NgIf, NgStyle, TitleCasePipe, UpperCasePipe} from "@angular/common";
 import {FaceWolvesService} from "../services/face-wolves.service";
 import {ActivatedRoute, ActivatedRouteSnapshot, RouterLink} from "@angular/router";
+import {Observable} from "rxjs";
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-face-wolf',
@@ -14,13 +16,16 @@ import {ActivatedRoute, ActivatedRouteSnapshot, RouterLink} from "@angular/route
     LowerCasePipe,
     TitleCasePipe,
     RouterLink,
+    AsyncPipe,
+    NgIf,
   ],
   templateUrl: './single-face-wolf.component.html',
   styleUrl: './single-face-wolf.component.scss'
 })
 export class SingleFaceWolfComponent implements OnInit {
 
-  wolfSnap!: WolfSnap;
+  wolfSnap$!: Observable<WolfSnap>
+
   snapped!: boolean;
   snapButtonText!: string;
 
@@ -31,16 +36,28 @@ export class SingleFaceWolfComponent implements OnInit {
     this.snapButtonText = "Oh snap !"
     this.getWolfSnap()
 
-
   }
 
   private getWolfSnap(): void{
     const wolfsSnapId = this.route.snapshot.params['id'];
-    this.wolfSnap= this.faceWolvesService.getWolfSnapById(wolfsSnapId);
+    this.wolfSnap$= this.faceWolvesService.getWolfSnapById(wolfsSnapId);
   }
-  onSnap() {
+  onSnap(wolfSnapId: number) {
       this.snapped = !this.snapped;
-      this.snapped ? this.faceWolvesService.snapWolfSnapById(this.wolfSnap.id, "snap") : this.faceWolvesService.snapWolfSnapById(this.wolfSnap.id, "unsnap");
+      this.wolfSnap$ = this.faceWolvesService.getWolfSnapById(wolfSnapId);
+      this.snapped ? this.faceWolvesService.snapWolfSnapById(wolfSnapId, "snap").pipe(
+        tap(()=>{
+          this.wolfSnap$ = this.faceWolvesService.getWolfSnapById(wolfSnapId);
+          this.snapButtonText ="Unsnap :("
+        })
+        ).subscribe() :
+        this.faceWolvesService.snapWolfSnapById(wolfSnapId, "unsnap").pipe(
+          tap(()=>{
+            this.wolfSnap$ = this.faceWolvesService.getWolfSnapById(wolfSnapId);
+            this.snapButtonText ="Oh snap !"
+          })
+        ).subscribe();
+
       this.snapped ? this.snapButtonText ="Unsnap :(" : this.snapButtonText ="Oh snap !"
   }
 }

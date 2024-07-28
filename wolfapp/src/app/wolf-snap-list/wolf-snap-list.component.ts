@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {WolfSnap} from "../models/wolf-snap";
 import {FaceWolfComponent} from "../face-wolf/face-wolf.component";
 import {FaceWolvesService} from "../services/face-wolves.service";
-import {Subject} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {AsyncPipe} from "@angular/common";
 
 @Component({
@@ -19,15 +19,14 @@ import {AsyncPipe} from "@angular/common";
 
 export class WolfSnapListComponent implements OnInit, OnDestroy{
 
-  snapList!: WolfSnap[];
   //private destroy$!: Subject<boolean>;
-  //snapList$!: Observable<WolfSnap[]>;
+  snapList$!: Observable<WolfSnap[]>;
 
   constructor(private faceWolvesService: FaceWolvesService) {
   }
 
   ngOnInit(): void {
-    this.snapList = this.faceWolvesService.getSnapList()
+    this.snapList$ = this.faceWolvesService.getSnapList()
 
     // interval(1000).pipe(
     //   takeUntil(this.destroy$),

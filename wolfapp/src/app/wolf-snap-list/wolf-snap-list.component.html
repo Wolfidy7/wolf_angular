@@ -1,4 +1,4 @@
-@for(eachWolfSnap of snapList; track eachWolfSnap.title){
+@for(eachWolfSnap of snapList$ | async; track eachWolfSnap.title){
   <app-face-wolf [wolfSnap]="eachWolfSnap"/>
 
 }
